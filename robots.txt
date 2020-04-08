@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: http://Myrat92.github.io/sitemap.xml
