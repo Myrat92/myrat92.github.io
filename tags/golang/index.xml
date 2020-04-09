@@ -17,7 +17,7 @@
       <pubDate>Thu, 09 Apr 2020 00:18:54 +0800</pubDate>
       
       <guid>http://myrat.top/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</guid>
-      <description>v2ray设置本地端口监听为10808。 在终端输入 1 2 3 set http_proxy=socks5://127.0.0.1:10808 set https_proxy=socks5://127.0.0.1:10808 set GIT_SSL_NO_VERTIFY=true</description>
+      <description>仅供技术交流，不提供v2ray方案。 v2ray设置本地端口监听为10808。 在终端输入 1 2 3 set http_proxy=socks5://127.0.0.1:10808 set https_proxy=socks5://127.0.0.1:10808 set GIT_SSL_NO_VERTIFY=true</description>
     </item>
     
   </channel>
