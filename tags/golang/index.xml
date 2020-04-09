@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on Myrat</title>
-    <link>http://Myrat92.github.io/tags/golang/</link>
+    <link>http://myrat.top/tags/golang/</link>
     <description>Recent content in Golang on Myrat</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Thu, 09 Apr 2020 00:18:54 +0800</lastBuildDate>
     
-	<atom:link href="http://Myrat92.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://myrat.top/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Windows使用v2ray配置go get代理</title>
-      <link>http://Myrat92.github.io/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</link>
+      <link>http://myrat.top/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</link>
       <pubDate>Thu, 09 Apr 2020 00:18:54 +0800</pubDate>
       
-      <guid>http://Myrat92.github.io/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</guid>
+      <guid>http://myrat.top/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</guid>
       <description>v2ray设置本地端口监听为10808。 在终端输入 1 2 3 set http_proxy=socks5://127.0.0.1:10808 set https_proxy=socks5://127.0.0.1:10808 set GIT_SSL_NO_VERTIFY=true</description>
     </item>
     

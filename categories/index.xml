@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Myrat</title>
-    <link>http://Myrat92.github.io/categories/</link>
+    <link>http://myrat.top/categories/</link>
     <description>Recent content in Categories on Myrat</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     
-	<atom:link href="http://Myrat92.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://myrat.top/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

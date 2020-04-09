@@ -1,69 +1,69 @@
-<?xml-stylesheet type="text/xsl" href="http://Myrat92.github.io/sitemap.xsl"?>
+<?xml-stylesheet type="text/xsl" href="http://myrat.top/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://Myrat92.github.io/tags/golang/</loc>
+    <loc>http://myrat.top/tags/golang/</loc>
     <lastmod>2020-04-09T00:18:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Myrat92.github.io/post/</loc>
+    <loc>http://myrat.top/post/</loc>
     <lastmod>2020-04-09T00:18:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Myrat92.github.io/tags/</loc>
+    <loc>http://myrat.top/tags/</loc>
     <lastmod>2020-04-09T00:18:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Myrat92.github.io/tags/v2ray/</loc>
+    <loc>http://myrat.top/tags/v2ray/</loc>
     <lastmod>2020-04-09T00:18:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Myrat92.github.io/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</loc>
+    <loc>http://myrat.top/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</loc>
     <lastmod>2020-04-09T00:18:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Myrat92.github.io/about/</loc>
+    <loc>http://myrat.top/about/</loc>
     <lastmod>2020-04-08T19:43:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Myrat92.github.io/</loc>
+    <loc>http://myrat.top/</loc>
     <lastmod>2020-04-08T19:43:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Myrat92.github.io/categories/</loc>
+    <loc>http://myrat.top/categories/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Myrat92.github.io/archives/</loc>
+    <loc>http://myrat.top/archives/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>http://Myrat92.github.io/search/</loc>
+    <loc>http://myrat.top/search/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

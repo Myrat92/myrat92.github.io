@@ -2,48 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Myrat</title>
-    <link>http://Myrat92.github.io/</link>
+    <link>http://myrat.top/</link>
     <description>Recent content on Myrat</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 08 Apr 2020 19:43:28 +0800</lastBuildDate>
     
-	<atom:link href="http://Myrat92.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://myrat.top/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Windows使用v2ray配置go get代理</title>
-      <link>http://Myrat92.github.io/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</link>
+      <link>http://myrat.top/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</link>
       <pubDate>Thu, 09 Apr 2020 00:18:54 +0800</pubDate>
       
-      <guid>http://Myrat92.github.io/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</guid>
+      <guid>http://myrat.top/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</guid>
       <description>v2ray设置本地端口监听为10808。 在终端输入 1 2 3 set http_proxy=socks5://127.0.0.1:10808 set https_proxy=socks5://127.0.0.1:10808 set GIT_SSL_NO_VERTIFY=true</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>http://Myrat92.github.io/about/</link>
+      <link>http://myrat.top/about/</link>
       <pubDate>Wed, 08 Apr 2020 19:43:28 +0800</pubDate>
       
-      <guid>http://Myrat92.github.io/about/</guid>
+      <guid>http://myrat.top/about/</guid>
       <description>Myrat</description>
     </item>
     
     <item>
       <title>归档</title>
-      <link>http://Myrat92.github.io/archives/</link>
+      <link>http://myrat.top/archives/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://Myrat92.github.io/archives/</guid>
+      <guid>http://myrat.top/archives/</guid>
       <description></description>
     </item>
     
     <item>
       <title>搜索</title>
-      <link>http://Myrat92.github.io/search/</link>
+      <link>http://myrat.top/search/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://Myrat92.github.io/search/</guid>
+      <guid>http://myrat.top/search/</guid>
       <description></description>
     </item>
     
