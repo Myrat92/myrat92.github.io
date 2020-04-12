@@ -48,7 +48,7 @@
 <meta itemprop="description" content="安装docker 参考菜鸟教程给服务器安装docker https://www.runoob.com/docker/centos-docker-install.html 下载nginx镜像 docker pull nginx:1.17.9 启动nginx容器 docker run --name blogNginx -d -p 80:80 -v {static-html-directory}:/usr/share/nginx/html nginx:1.17.9 static-html-">
 <meta itemprop="datePublished" content="2020-04-12T21:33:32&#43;08:00" />
 <meta itemprop="dateModified" content="2020-04-12T21:33:32&#43;08:00" />
-<meta itemprop="wordCount" content="788">
+<meta itemprop="wordCount" content="795">
 
 
 
@@ -122,7 +122,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-04-12 </span>
         
-          <span class="more-meta"> 约 788 字 </span>
+          <span class="more-meta"> 约 795 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -139,6 +139,7 @@
         <li><a href="#下载nginx镜像">下载nginx镜像</a></li>
         <li><a href="#启动nginx容器">启动nginx容器</a></li>
         <li><a href="#添加ssl证书支持https访问">添加SSL证书支持https访问</a></li>
+        <li><a href="#参考资料">参考资料：</a></li>
       </ul>
     </li>
   </ul>
@@ -310,6 +311,11 @@ http {
 </div>
 </div><p>重新创建nginx容器：
 <code> docker run --name blogNginx -d -p 80:80 -p 443:443 -v {static-html-directory}:/usr/share/nginx/html -v {workspace}/nginx/nginx.conf:/etc/nginx/nginx.conf:ro nginx:my</code></p>
+<h3 id="参考资料">参考资料：</h3>
+<ul>
+<li><a href="https://www.runoob.com/docker/centos-docker-install.html">https://www.runoob.com/docker/centos-docker-install.html</a></li>
+<li><a href="https://cloud.tencent.com/document/product/400/35244">https://cloud.tencent.com/document/product/400/35244</a></li>
+</ul>
 
     </div>
 
