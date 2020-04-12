@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Centos7使用docker部署nginx并搭建hugo博客</title>
+      <link>http://myrat.top/post/centos7%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2nginx%E5%B9%B6%E6%90%AD%E5%BB%BAhugo%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Sun, 12 Apr 2020 21:33:32 +0800</pubDate>
+      
+      <guid>http://myrat.top/post/centos7%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2nginx%E5%B9%B6%E6%90%AD%E5%BB%BAhugo%E5%8D%9A%E5%AE%A2/</guid>
+      <description>安装docker 参考菜鸟教程给服务器安装docker https://www.runoob.com/docker/centos-docker-install.html 下载nginx镜像 docker pull nginx:1.17.9 启动nginx容器 docker run --name blogNginx -d -p 80:80 -v {static-html-directory}:/usr/share/nginx/html nginx:1.17.9 static-html-</description>
+    </item>
+    
+    <item>
       <title>Windows使用v2ray配置go get代理</title>
       <link>http://myrat.top/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/</link>
       <pubDate>Thu, 09 Apr 2020 00:18:54 +0800</pubDate>

@@ -6,10 +6,37 @@
     <description>Recent content in Tags on Myrat</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 09 Apr 2020 00:18:54 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 Apr 2020 21:33:32 +0800</lastBuildDate>
     
 	<atom:link href="http://myrat.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>docker</title>
+      <link>http://myrat.top/tags/docker/</link>
+      <pubDate>Sun, 12 Apr 2020 21:33:32 +0800</pubDate>
+      
+      <guid>http://myrat.top/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>http://myrat.top/tags/hugo/</link>
+      <pubDate>Sun, 12 Apr 2020 21:33:32 +0800</pubDate>
+      
+      <guid>http://myrat.top/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nginx</title>
+      <link>http://myrat.top/tags/nginx/</link>
+      <pubDate>Sun, 12 Apr 2020 21:33:32 +0800</pubDate>
+      
+      <guid>http://myrat.top/tags/nginx/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Golang</title>

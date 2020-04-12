@@ -2,21 +2,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://myrat.top/tags/golang/</loc>
-    <lastmod>2020-04-09T00:18:54+08:00</lastmod>
+    <loc>http://myrat.top/post/centos7%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2nginx%E5%B9%B6%E6%90%AD%E5%BB%BAhugo%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2020-04-12T21:33:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://myrat.top/tags/docker/</loc>
+    <lastmod>2020-04-12T21:33:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://myrat.top/tags/hugo/</loc>
+    <lastmod>2020-04-12T21:33:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://myrat.top/tags/nginx/</loc>
+    <lastmod>2020-04-12T21:33:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://myrat.top/post/</loc>
-    <lastmod>2020-04-09T00:18:54+08:00</lastmod>
+    <lastmod>2020-04-12T21:33:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>http://myrat.top/tags/</loc>
+    <lastmod>2020-04-12T21:33:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>http://myrat.top/tags/golang/</loc>
     <lastmod>2020-04-09T00:18:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

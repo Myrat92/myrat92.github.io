@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Centos7使用docker部署nginx并搭建hugo博客 - Myrat</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Myrat" /><meta name="description" content="安装docker 参考菜鸟教程给服务器安装docker https://www.runoob.com/docker/centos-docker-install.html 下载nginx镜像 docker pull nginx:1.17.9 启动nginx容器 docker run --name blogNginx -d -p 80:80 -v {static-html-directory}:/usr/share/nginx/html nginx:1.17.9 static-html-" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="http://myrat.top/post/centos7%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2nginx%E5%B9%B6%E6%90%AD%E5%BB%BAhugo%E5%8D%9A%E5%AE%A2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Centos7使用docker部署nginx并搭建hugo博客" />
+<meta property="og:description" content="安装docker 参考菜鸟教程给服务器安装docker https://www.runoob.com/docker/centos-docker-install.html 下载nginx镜像 docker pull nginx:1.17.9 启动nginx容器 docker run --name blogNginx -d -p 80:80 -v {static-html-directory}:/usr/share/nginx/html nginx:1.17.9 static-html-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://myrat.top/post/centos7%E4%BD%BF%E7%94%A8docker%E9%83%A8%E7%BD%B2nginx%E5%B9%B6%E6%90%AD%E5%BB%BAhugo%E5%8D%9A%E5%AE%A2/" />
+<meta property="article:published_time" content="2020-04-12T21:33:32+08:00" />
+<meta property="article:modified_time" content="2020-04-12T21:33:32+08:00" />
+<meta itemprop="name" content="Centos7使用docker部署nginx并搭建hugo博客">
+<meta itemprop="description" content="安装docker 参考菜鸟教程给服务器安装docker https://www.runoob.com/docker/centos-docker-install.html 下载nginx镜像 docker pull nginx:1.17.9 启动nginx容器 docker run --name blogNginx -d -p 80:80 -v {static-html-directory}:/usr/share/nginx/html nginx:1.17.9 static-html-">
+<meta itemprop="datePublished" content="2020-04-12T21:33:32&#43;08:00" />
+<meta itemprop="dateModified" content="2020-04-12T21:33:32&#43;08:00" />
+<meta itemprop="wordCount" content="788">
+
+
+
+<meta itemprop="keywords" content="hugo,docker,nginx," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Centos7使用docker部署nginx并搭建hugo博客"/>
+<meta name="twitter:description" content="安装docker 参考菜鸟教程给服务器安装docker https://www.runoob.com/docker/centos-docker-install.html 下载nginx镜像 docker pull nginx:1.17.9 启动nginx容器 docker run --name blogNginx -d -p 80:80 -v {static-html-directory}:/usr/share/nginx/html nginx:1.17.9 static-html-"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Myrat</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Myrat</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Centos7使用docker部署nginx并搭建hugo博客</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-04-12 </span>
+        
+          <span class="more-meta"> 约 788 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#安装docker">安装docker</a></li>
+        <li><a href="#下载nginx镜像">下载nginx镜像</a></li>
+        <li><a href="#启动nginx容器">启动nginx容器</a></li>
+        <li><a href="#添加ssl证书支持https访问">添加SSL证书支持https访问</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="安装docker">安装docker</h3>
+<p>参考菜鸟教程给服务器安装docker</p>
+<blockquote>
+<p><a href="https://www.runoob.com/docker/centos-docker-install.html">https://www.runoob.com/docker/centos-docker-install.html</a></p>
+</blockquote>
+<h3 id="下载nginx镜像">下载nginx镜像</h3>
+<p><code>docker pull nginx:1.17.9</code></p>
+<h3 id="启动nginx容器">启动nginx容器</h3>
+<p><code>docker run --name blogNginx -d -p 80:80 -v {static-html-directory}:/usr/share/nginx/html nginx:1.17.9 </code>
+<code>static-html-directory</code>为宿主机静态页面文件路径。</p>
+<p>这时候在浏览器访问http://ip已经可以看到页面了。</p>
+<h3 id="添加ssl证书支持https访问">添加SSL证书支持https访问</h3>
+<p>参考腾讯云nginx服务器证书安装</p>
+<blockquote>
+<p><a href="https://cloud.tencent.com/document/product/400/35244">https://cloud.tencent.com/document/product/400/35244</a></p>
+</blockquote>
+<p>其中有几点需要注意：</p>
+<ul>
+<li>我们的nginx安装目录为<code>/etc/nginx</code></li>
+<li>我们网站主页路径为<code>/usr/share/nginx/html</code></li>
+</ul>
+<p>在我们服务器中创建nginx目录，<code>mkdir {workspace}/nginx</code>。
+<code>mkdir log</code>在该目录创建log文件夹用来挂载nginx日志。
+下载证书文件解压后将Nginx文件夹目录内容scp到服务器<code>{workspace}/nginx</code>中，<code>vim dockerfile</code>编写dockerfile将证书文件和私钥拷贝进容器里并打包镜像。</p>
+<p>dockfile:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">FROM nginx:1.17.9
+copy xxx.crt /etc/nginx/
+copy xxx.key /etc/nginx/
+</code></pre></td></tr></table>
+</div>
+</div><p>执行命令<code>docker build -f dockerfile -t nginx:my</code>
+此时执行<code>docker images</code>可以看到我们刚刚创建的nginx镜像。</p>
+<p>在<code>{workspace}/nginx</code>目录下创建nginx配置文件<code>vim nginx.conf</code>。
+将其中的<code>root</code>路径替换为我们容器内文件的路径。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  &#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; &#39;
+                      &#39;$status $body_bytes_sent &#34;$http_referer&#34; &#39;
+                      &#39;&#34;$http_user_agent&#34; &#34;$http_x_forwarded_for&#34;&#39;;
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+
+    server {
+     #SSL 访问端口号为 443
+     listen 443 ssl;
+     #填写绑定证书的域名
+     server_name myrat.top;
+     #证书文件名称
+     ssl_certificate 1_myrat.top_bundle.crt;
+     #私钥文件名称
+     ssl_certificate_key 2_myrat.top.key;
+     ssl_session_timeout 5m;
+     #请按照以下协议配置
+     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+     #请按照以下套件配置，配置加密套件，写法遵循 openssl 标准。
+     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+     ssl_prefer_server_ciphers on;
+     location / {
+        #网站主页路径。此路径仅供参考，具体请您按照实际目录操作。
+         root /usr/share/nginx/html;
+         index  index.html index.htm;
+        }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>删除之前创建的容器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">docker rm -f `docker ps | grep blogNginx | awk &#39;{print $1}&#39;`
+</code></pre></td></tr></table>
+</div>
+</div><p>重新创建nginx容器：
+<code> docker run --name blogNginx -d -p 80:80 -p 443:443 -v {static-html-directory}:/usr/share/nginx/html -v {workspace}/nginx/nginx.conf:/etc/nginx/nginx.conf:ro nginx:my</code></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Myrat</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-04-12
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/hugo/">hugo</a>
+          <a href="/tags/docker/">docker</a>
+          <a href="/tags/nginx/">nginx</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/windows%E4%BD%BF%E7%94%A8v2ray%E9%85%8D%E7%BD%AEgo%E4%BB%A3%E7%90%86/">
+            <span class="next-text nav-default">Windows使用v2ray配置go get代理</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zjsegzhf@gmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://myrat.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Myrat</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
