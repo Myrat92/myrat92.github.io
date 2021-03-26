@@ -6,10 +6,28 @@
     <description>Recent content in Tags on Myrat</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 12 Apr 2020 21:33:32 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 26 Mar 2021 23:44:19 +0800</lastBuildDate>
     
 	<atom:link href="http://myrat.top/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Raspberry Pi</title>
+      <link>http://myrat.top/tags/raspberry-pi/</link>
+      <pubDate>Fri, 26 Mar 2021 23:44:19 +0800</pubDate>
+      
+      <guid>http://myrat.top/tags/raspberry-pi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>内网穿透</title>
+      <link>http://myrat.top/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</link>
+      <pubDate>Fri, 26 Mar 2021 23:44:19 +0800</pubDate>
+      
+      <guid>http://myrat.top/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>docker</title>
