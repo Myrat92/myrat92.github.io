@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Knative学习笔记一 - Myrat</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Myrat" /><meta name="description" content="开始使用Knative Eventing 创建一个Knative Eventing namespace 1 kubectl create namespace event-example 添加一个broker broker路由事件到不同的事件接收器或消费者。 用以下命令添" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.3 with theme even" />
+
+
+<link rel="canonical" href="http://myrat.top/knative%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Knative学习笔记一" />
+<meta property="og:description" content="开始使用Knative Eventing 创建一个Knative Eventing namespace 1 kubectl create namespace event-example 添加一个broker broker路由事件到不同的事件接收器或消费者。 用以下命令添" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://myrat.top/knative%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/" />
+<meta property="article:published_time" content="2021-06-04T00:22:21+08:00" />
+<meta property="article:modified_time" content="2021-06-04T00:22:21+08:00" />
+<meta itemprop="name" content="Knative学习笔记一">
+<meta itemprop="description" content="开始使用Knative Eventing 创建一个Knative Eventing namespace 1 kubectl create namespace event-example 添加一个broker broker路由事件到不同的事件接收器或消费者。 用以下命令添">
+<meta itemprop="datePublished" content="2021-06-04T00:22:21&#43;08:00" />
+<meta itemprop="dateModified" content="2021-06-04T00:22:21&#43;08:00" />
+<meta itemprop="wordCount" content="2227">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Knative学习笔记一"/>
+<meta name="twitter:description" content="开始使用Knative Eventing 创建一个Knative Eventing namespace 1 kubectl create namespace event-example 添加一个broker broker路由事件到不同的事件接收器或消费者。 用以下命令添"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Myrat</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Myrat</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+  <div class="post-content">
+    <h3 id="开始使用knative-eventing">开始使用Knative Eventing</h3>
+<h4 id="创建一个knative-eventing-namespace">创建一个Knative Eventing namespace</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl create namespace event-example
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="添加一个broker">添加一个broker</h4>
+<p>broker路由事件到不同的事件接收器或消费者。</p>
+<ul>
+<li>
+<p>用以下命令添加一个叫做<code>default</code>的broker：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl create -f - <span class="s">&lt;&lt;EOF
+</span><span class="s">apiVersion: eventing.knative.dev/v1
+</span><span class="s">kind: broker
+</span><span class="s">metadata:
+</span><span class="s"> name: default
+</span><span class="s"> namespace: event-example
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>确认broker正确运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">kubectl -n event-example get broker default
+</code></pre></td></tr></table>
+</div>
+</div><p>确保<code>Ready</code>状态为<code>True</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">NAME      URL                                                                              AGE   READY   REASON
+default   http://broker-ingress.knative-eventing.svc.cluster.local/event-example/default   45s   True
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h4 id="创建事件消费者">创建事件消费者</h4>
+<p>在这里我们创建两个事件消费者，<code>hello-display</code>和<code>goodbye-display</code>，来演示怎么配置事件生产者来针对特定的消费者。</p>
+<ul>
+<li>
+<p>用以下命令部署<code>hello-display</code>消费者到集群中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl -n event-example apply -f - <span class="s">&lt;&lt; EOF
+</span><span class="s">apiVersion: apps/v1
+</span><span class="s">kind: Deployment
+</span><span class="s">metadata:
+</span><span class="s">  name: hello-display
+</span><span class="s">spec:
+</span><span class="s">  replicas: 1
+</span><span class="s">  selector:
+</span><span class="s">    matchLabels: &amp;labels
+</span><span class="s">      app: hello-display
+</span><span class="s">  template:
+</span><span class="s">    metadata:
+</span><span class="s">      labels: *labels
+</span><span class="s">    spec:
+</span><span class="s">      containers:
+</span><span class="s">        - name: event-display
+</span><span class="s">          image: gcr.io/knative-releases/knative.dev/eventing/cmd/event_display
+</span><span class="s">  
+</span><span class="s">---
+</span><span class="s">  
+</span><span class="s">kind: Service
+</span><span class="s">apiVersion: v1
+</span><span class="s">metadata:
+</span><span class="s">  name: hello-display
+</span><span class="s">spec:
+</span><span class="s">  selector:
+</span><span class="s">    app: hello-display
+</span><span class="s">  ports:
+</span><span class="s">  - protocol: TCP
+</span><span class="s">    port: 80
+</span><span class="s">    targetPort: 8080
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>用以下命令部署<code>goodbye-display</code>消费者到集群中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl -n event-example apply -f - <span class="s">&lt;&lt; EOF
+</span><span class="s">apiVersion: apps/v1
+</span><span class="s">kind: Deployment
+</span><span class="s">metadata:
+</span><span class="s">  name: goodbye-display
+</span><span class="s">spec:
+</span><span class="s">  replicas: 1
+</span><span class="s">  selector:
+</span><span class="s">    matchLabels: &amp;labels
+</span><span class="s">      app: goodbye-display
+</span><span class="s">  template:
+</span><span class="s">    metadata:
+</span><span class="s">      labels: *labels
+</span><span class="s">    spec:
+</span><span class="s">      containers:
+</span><span class="s">        - name: event-display
+</span><span class="s">          # Source code: https://github.com/knative/eventing/tree/main/cmd/event_display
+</span><span class="s">          image: gcr.io/knative-releases/knative.dev/eventing/cmd/event_display
+</span><span class="s">  
+</span><span class="s">---
+</span><span class="s">  
+</span><span class="s">kind: Service
+</span><span class="s">apiVersion: v1
+</span><span class="s">metadata:
+</span><span class="s">  name: goodbye-display
+</span><span class="s">spec:
+</span><span class="s">  selector:
+</span><span class="s">    app: goodbye-display
+</span><span class="s">  ports:
+</span><span class="s">  - protocol: TCP
+</span><span class="s">    port: 80
+</span><span class="s">    targetPort: 8080
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>用以下命令确认消费者正常工作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl -n event-example get deployments hello-display goodbye-display
+</code></pre></td></tr></table>
+</div>
+</div><p>上述命令能列出我们部署的<code>hello-display</code>和<code>goodbye-display</code>消费者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+hello-display     1/1     <span class="m">1</span>            <span class="m">1</span>           2m1s
+goodbye-display   1/1     <span class="m">1</span>            <span class="m">1</span>           47s
+</code></pre></td></tr></table>
+</div>
+</div><p><code>READY</code>列副本数量要与<code>AVAILABLE</code>列匹配。</p>
+</li>
+</ul>
+<h4 id="创建triggers">创建triggers</h4>
+<p>Triggers定义了每个事件消费者接受到的事件。Brokers使用triggers将事件发送给正确的消费者。每个trigger能够指定一个过滤器，该过滤器能够基于Cloud Event context attribute选择相关的事件。</p>
+<ul>
+<li>
+<p>创建一个trigger：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl -n event-example apply -f - <span class="s">&lt;&lt; EOF
+</span><span class="s">apiVersion: eventing.knative.dev/v1
+</span><span class="s">kind: Trigger
+</span><span class="s">metadata:
+</span><span class="s">  name: hello-display
+</span><span class="s">spec:
+</span><span class="s">  broker: default
+</span><span class="s">  filter:
+</span><span class="s">    attributes:
+</span><span class="s">      type: greeting
+</span><span class="s">  subscriber:
+</span><span class="s">    ref:
+</span><span class="s">     apiVersion: v1
+</span><span class="s">     kind: Service
+</span><span class="s">     name: hello-display
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>该命令创建了一个的trigger来发送所有<code>type</code>为<code>greeting</code>的事件到一个名为<code>hello-display</code>的事件消费者。</p>
+</li>
+<li>
+<p>创建第二个消费者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">kubectl -n event-example apply -f - &lt;&lt; EOF
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: goodbye-display
+spec:
+  broker: default
+  filter:
+    attributes:
+      source: sendoff
+  subscriber:
+    ref:
+     apiVersion: v1
+     kind: Service
+     name: goodbye-display
+EOF
+</code></pre></td></tr></table>
+</div>
+</div><p>该命令创建了一个trigger用来发送所有<code>source</code>为<code>sendoff</code>的事件到名为<code>goodbye-display</code>的事件消费者。</p>
+</li>
+<li>
+<p>确认trigger正常工作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl -n event-example get triggers
+</code></pre></td></tr></table>
+</div>
+</div><p>该命令返回刚刚创建的两个triggers：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">NAME              BROKER    SUBSCRIBER_URI                                            AGE     READY   REASON
+goodbye-display   default   http://goodbye-display.event-example.svc.cluster.local/   44s     True
+hello-display     default   http://hello-display.event-example.svc.cluster.local/     4m47s   True
+</code></pre></td></tr></table>
+</div>
+</div><p>如果triggers配置正确，则会Ready并且指向正确的broker和SUBSCRIBER_URI。</p>
+</li>
+</ul>
+<h4 id="创建一个pod作为事件生产者">创建一个Pod作为事件生产者</h4>
+<p>我们使用<code>curl</code>命令手动将单个事件作为HTTP请求发送给broker，并演示这些事件怎么被事件消费者正确的接收。</p>
+<p>只能从安装了Knative Eventing集群内访问broker，所以必须在集群内创建一个pod来执行<code>curl</code>命令作为事件生产者。</p>
+<p>用以下命令创建pod：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl -n event-example apply -f - <span class="s">&lt;&lt; EOF
+</span><span class="s">apiVersion: v1
+</span><span class="s">kind: Pod
+</span><span class="s">metadata:
+</span><span class="s">  labels:
+</span><span class="s">    run: curl
+</span><span class="s">  name: curl
+</span><span class="s">spec:
+</span><span class="s">  containers:
+</span><span class="s">    # This could be any image that we can SSH into and has curl.
+</span><span class="s">  - image: radial/busyboxplus:curl
+</span><span class="s">    imagePullPolicy: IfNotPresent
+</span><span class="s">    name: curl
+</span><span class="s">    resources: {}
+</span><span class="s">    stdin: true
+</span><span class="s">    terminationMessagePath: /dev/termination-log
+</span><span class="s">    terminationMessagePolicy: File
+</span><span class="s">    tty: true
+</span><span class="s">EOF</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="给broker发送事件">给broker发送事件</h4>
+<ul>
+<li>
+<p>进入刚刚创建的容器内：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">kubectl -n event-example attach curl -it
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>这里构建三种请求来展示可以发送的各种类型的事件：</p>
+<ul>
+<li>
+<p>构建<code>type</code>为<code>greeting</code>的事件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -v <span class="s2">&#34;http://broker-ingress.knative-eventing.svc.cluster.local/event-example/default&#34;</span> <span class="se">\
+</span><span class="se"></span>  -X POST <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Id: say-hello&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Specversion: 1.0&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Type: greeting&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Source: not-sendoff&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span><span class="se"></span>  -d <span class="s1">&#39;{&#34;msg&#34;:&#34;Hello Knative!&#34;}&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当broker接收到该事件时，<code>hello-display</code>会被激活并将事件发送给对应事件消费者。如果接收到了事件，则会收到如下类似<code>202 Accepted</code>的回应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&lt; HTTP/1.1 <span class="m">202</span> Accepted
+&lt; Date: Wed, <span class="m">02</span> Jun <span class="m">2021</span> 08:35:12 GMT
+&lt; Content-Length: <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>构建<code>source</code>为<code>sendoff</code>的事件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -v <span class="s2">&#34;http://broker-ingress.knative-eventing.svc.cluster.local/event-example/default&#34;</span> <span class="se">\
+</span><span class="se"></span>  -X POST <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Id: say-goodbye&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Specversion: 1.0&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Type: not-greeting&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Source: sendoff&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span><span class="se"></span>  -d <span class="s1">&#39;{&#34;msg&#34;:&#34;Goodbye Knative!&#34;}&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当broker接收到该事件时，<code>goodbye-display</code>会被激活并将事件发送给对应事件消费者。如果接收到了事件，则会收到如下类似<code>202 Accepted</code>的回应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&lt; HTTP/1.1 <span class="m">202</span> Accepted
+&lt; Date: Wed, <span class="m">02</span> Jun <span class="m">2021</span> 08:42:02 GMT
+&lt; Content-Length: <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>构建包含<code>type</code>为<code>greeting</code>、<code>source</code>为<code>sendoff</code>的事件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -v <span class="s2">&#34;http://broker-ingress.knative-eventing.svc.cluster.local/event-example/default&#34;</span> <span class="se">\
+</span><span class="se"></span>  -X POST <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Id: say-hello-goodbye&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Specversion: 1.0&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Type: greeting&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Ce-Source: sendoff&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;Content-Type: application/json&#34;</span> <span class="se">\
+</span><span class="se"></span>  -d <span class="s1">&#39;{&#34;msg&#34;:&#34;Hello Knative! Goodbye Knative!&#34;}&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>当broker接收到该事件时，<code>hello-display</code>和<code>goodbye-display</code>都会被激活并将事件发送给对应事件消费者。如果接收到了事件，则会收到如下类似<code>202 Accepted</code>的回应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">&lt; HTTP/1.1 <span class="m">202</span> Accepted
+&lt; Date: Wed, <span class="m">02</span> Jun <span class="m">2021</span> 08:45:16 GMT
+&lt; Content-Length: <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+<li>
+<p>使用<code>exit</code>命令退出容器。</p>
+</li>
+</ul>
+<p>到这里我们发送了两个事件给<code>hello-display</code>事件消费者，两个事件给<code>goodbye-display</code>。后面让我们确认正确接收了这些事件。</p>
+<h4 id="确认事件接收">确认事件接收</h4>
+<p>确认事件被正确的订阅者接收了。</p>
+<ul>
+<li>
+<p>查看<code>hello-display</code>事件消费者的日志：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl -n event-example logs -l <span class="nv">app</span><span class="o">=</span>hello-display --tail<span class="o">=</span><span class="m">100</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到发送给<code>hello-display</code>的事件的<code>Attributes</code>和<code>Data</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-http" data-lang="http"><span class="err">☁️  cloudevents.Event
+</span><span class="err">Context Attributes,
+</span><span class="err">  specversion: 1.0
+</span><span class="err">  type: greeting
+</span><span class="err">  source: not-sendoff
+</span><span class="err">  id: say-hello
+</span><span class="err">  datacontenttype: application/json
+</span><span class="err">Extensions,
+</span><span class="err">  knativearrivaltime: 2021-06-02T08:35:12.137155445Z
+</span><span class="err">Data,
+</span><span class="err">  {
+</span><span class="err">    &#34;msg&#34;: &#34;Hello Knative!&#34;
+</span><span class="err">  }
+</span><span class="err">☁️  cloudevents.Event
+</span><span class="err">Context Attributes,
+</span><span class="err">  specversion: 1.0
+</span><span class="err">  type: greeting
+</span><span class="err">  source: sendoff
+</span><span class="err">  id: say-hello-goodbye
+</span><span class="err">  datacontenttype: application/json
+</span><span class="err">Extensions,
+</span><span class="err">  knativearrivaltime: 2021-06-02T08:45:16.087732995Z
+</span><span class="err">Data,
+</span><span class="err">  {
+</span><span class="err">    &#34;msg&#34;: &#34;Hello Knative! Goodbye Knative!&#34;
+</span><span class="err">  }
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看<code>goodbye-display</code>事件消费者的日志：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">kubectl -n event-example logs -l <span class="nv">app</span><span class="o">=</span>goodbye-display --tail<span class="o">=</span><span class="m">100</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到发送给<code>goodbye-display</code>的事件的<code>Attributes</code>和<code>Data</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">☁️  cloudevents.Event
+Context Attributes,
+  specversion: 1.0
+  type: not-greeting
+  source: sendoff
+  id: say-goodbye
+  datacontenttype: application/json
+Extensions,
+  knativearrivaltime: 2021-06-02T08:42:02.227918434Z
+Data,
+  {
+    &#34;msg&#34;: &#34;Goodbye Knative!&#34;
+  }
+☁️  cloudevents.Event
+Context Attributes,
+  specversion: 1.0
+  type: greeting
+  source: sendoff
+  id: say-hello-goodbye
+  datacontenttype: application/json
+Extensions,
+  knativearrivaltime: 2021-06-02T08:45:16.087732995Z
+Data,
+  {
+    &#34;msg&#34;: &#34;Hello Knative! Goodbye Knative!&#34;
+  }
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h4 id="参考资料">参考资料</h4>
+<ul>
+<li><a href="https://knative.dev/docs/eventing/getting-started/">https://knative.dev/docs/eventing/getting-started/</a></li>
+</ul>
+
+  </div>
+</article>
+        </div>
+        
+  <div id="utter-container"></div>
+    <script src="https://utteranc.es/client.js"
+        repo= 'Myrat92/blog-comment'
+        issue-term= "title"
+        theme= 'github-light'
+        crossorigin= "anonymous"
+        async>
+    </script>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zjsegzhf@gmail.com" class="iconfont icon-email" title="email"></a>
+  <a href="http://myrat.top/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="ipc">
+    
+  </span>
+  <span class="icp-info">
+    <a class="icp-link" href="https://beian.miit.gov.cn/">浙ICP备20012685号-1</a> | 
+    <a class="icp-link" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010802010867">浙公网安备 33010802010867号</a>
+  </span>
+  
+  
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Myrat</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

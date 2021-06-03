@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Knative学习笔记一</title>
+      <link>http://myrat.top/post/knative%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</link>
+      <pubDate>Fri, 04 Jun 2021 00:22:21 +0800</pubDate>
+      
+      <guid>http://myrat.top/post/knative%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</guid>
+      <description>开始使用Knative Eventing 创建一个Knative Eventing namespace 1 kubectl create namespace event-example 添加一个broker broker路由事件到不同的事件接收器或消费者。 用以下命令添</description>
+    </item>
+    
+    <item>
       <title>外网访问没有公网IP的树莓派</title>
       <link>http://myrat.top/post/%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE%E6%B2%A1%E6%9C%89%E5%85%AC%E7%BD%91ip%E7%9A%84%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
       <pubDate>Fri, 26 Mar 2021 23:44:19 +0800</pubDate>
